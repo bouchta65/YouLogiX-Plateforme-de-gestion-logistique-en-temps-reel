@@ -1,0 +1,1 @@
+# Gestion centralisée des exceptions
