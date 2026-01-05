@@ -1,0 +1,2 @@
+# YouLogiX-Plateforme-de-gestion-logistique-en-temps-reel
+YouLogiX plateforme web de gestion logistique en temps réel permettant de suivre, organiser et optimiser les opérations logistiques. Elle centralise les données liées aux commandes, livraisons et stocks afin d’améliorer la visibilité, la coordination des acteurs et la prise de décision, tout en réduisant les retards et les coûts opérationnels.
