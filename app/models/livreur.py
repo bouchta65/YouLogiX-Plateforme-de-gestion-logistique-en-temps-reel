@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from core.config import Base
+from core.database import Base
 
 class Livreur(Base):
     __tablename__ = "livreurs"

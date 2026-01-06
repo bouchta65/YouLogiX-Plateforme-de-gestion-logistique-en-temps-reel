@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from core.config import Base
+from core.database import Base
 
 class ClientExpediteur(Base):
     __tablename__ = "client_expediteur"
