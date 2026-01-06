@@ -38,4 +38,3 @@ def delete_client(db:Session, client_id:int):
     db.delete(db_client)
     db.commit()
     return db_client
-    
