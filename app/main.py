@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.database import Base, engine
-from app.routes import client_routes, destinataire_routes, livreur_routes
+from app.routes import client_routes, destinataire_routes, livreur_routes, colis_routes
+
+# Import all models to ensure they're registered with Base
+from app.models import client_expediteur, destinataire, livreur, colis, zone, historique_statut
 
 Base.metadata.create_all(bind=engine)
 
@@ -20,6 +23,7 @@ app.add_middleware(
 app.include_router(client_routes.router)
 app.include_router(destinataire_routes.router)
 app.include_router(livreur_routes.router)
+app.include_router(colis_routes.router)
 
 @app.get("/")
 def root():
