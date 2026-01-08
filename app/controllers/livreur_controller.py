@@ -1,6 +1,6 @@
-from sqlalchemy import Session 
-from models.livreur import Livreur
-from schemas.livreur import LivreurCreate , LivreurUpdate
+from sqlalchemy.orm import Session
+from app.models.livreur import Livreur
+from app.schemas.livreur import LivreurCreate, LivreurUpdate
 
 def create_livreur(db: Session, livreur: LivreurCreate):
     db_livreur = Livreur(

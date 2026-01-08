@@ -1,6 +1,6 @@
-from sqlalchemy import Session 
-from models.client_expediteur import ClientExpediteur
-from schemas.client_expediteur import ClientExpediteurCreate , ClientExpediteurUpdate
+from sqlalchemy.orm import Session
+from app.models.client_expediteur import ClientExpediteur
+from app.schemas.client_expediteur import ClientExpediteurCreate, ClientExpediteurUpdate
 
 def create_client(db: Session, client: ClientExpediteurCreate):
     db_client = ClientExpediteur(
