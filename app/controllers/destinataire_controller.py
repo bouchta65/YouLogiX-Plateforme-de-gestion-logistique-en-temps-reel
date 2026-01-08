@@ -1,6 +1,6 @@
-from sqlalchemy import Session 
-from models.destinataire import Destinataire
-from schemas.destinataire import DestinataireCreate,DestinataireUpdate
+from sqlalchemy.orm import Session
+from app.models.destinataire import Destinataire
+from app.schemas.destinataire import DestinataireCreate, DestinataireUpdate
 
 def create_destinataire(db: Session, destinataire: DestinataireCreate):
     db_client = Destinataire(
