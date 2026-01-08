@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String , ForeignKey , Enum
-from core.database import Base
+from sqlalchemy import Column, Integer, String, ForeignKey, Enum
+from app.core.database import Base
 import enum
 
 class StatutColis(enum.Enum):
