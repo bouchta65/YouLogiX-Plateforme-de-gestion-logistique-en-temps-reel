@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CV Wissal ANNAN</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            font-size: 10pt;
+        }
+        .page {
+            background-color: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 15mm; /* reduced padding to fit */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+        /* Header */
+        header {
+            width: 100%;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header-text {
+            width: 80%;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24pt;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        .subtitle {
+            font-size: 11pt;
+            color: #555;
+            margin: 5px 0;
+            font-weight: 500;
+        }
+        .contact-info {
+            font-size: 9pt;
+            color: #777;
+            margin-top: 5px;
+        }
+        .photo {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 20px;
+        }
+
+        /* Layout Columns */
+        .main-col {
+            width: 63%;
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+        }
+        .side-col {
+            width: 33%; /* adjusted */
+            padding-left: 15px;
+        }
+
+        /* Headings */
+        h2 {
+            font-size: 11pt;
+            text-transform: uppercase;
+            color: #666;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 3px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* Content Styles */
+        .job-title {
+            font-weight: bold;
+            font-size: 10.5pt;
+            margin-top: 10px;
+            margin-bottom: 2px;
+        }
+        .company {
+            font-weight: normal;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9pt;
+            margin-bottom: 4px;
+        }
+        .project-name {
+            font-weight: bold;
+            font-size: 9.5pt;
+            margin-bottom: 2px;
+        }
+        .role {
+            font-style: italic;
+            font-size: 9pt;
+            margin-bottom: 2px;
+        }
+        ul {
+            margin: 0;
+            padding-left: 18px;
+            margin-bottom: 8px;
+        }
+        li {
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
+        .tech-stack {
+            font-weight: bold;
+            font-size: 9pt;
+            margin-top: 3px;
+        }
+
+        /* Side Column specific */
+        .edu-block {
+            margin-bottom: 12px;
+        }
+        .edu-title {
+            font-weight: bold;
+            font-size: 10pt;
+        }
+        .edu-school {
+            font-size: 9pt;
+            color: #444;
+        }
+        .edu-date {
+            font-size: 8.5pt;
+            color: #666;
+            display: block;
+        }
+        .skill-category {
+            font-weight: 600;
+            font-size: 9.5pt;
+            color: #555;
+            margin-top: 8px;
+            margin-bottom: 2px;
+        }
+        .skill-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .skill-item {
+            font-size: 9pt;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Print Settings */
+        @media print {
+            body { background: none; margin: 0; padding: 0; }
+            .page { box-shadow: none; margin: 0; width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <header>
+        <div class="header-text">
+            <h1>Wissal ANNAN</h1>
+            <div class="subtitle">Étudiante en Cycle Ingénieur d'État en informatique et Intelligence Artificielle | Double diplôme INSA - HESTIM | À la recherche d'un stage PFE</div>
+            <div class="contact-info">
+                📞 +212707250226 &nbsp;|&nbsp; ✉️ annan@hestim.ma &nbsp;|&nbsp; 📍 Casablanca, Maroc
+            </div>
+        </div>
+        <img src="https://via.placeholder.com/150" alt="Photo" class="photo"> 
+    </header>
+
+    <div class="main-col">
+        
+        <h2>PROFIL</h2>
+        <p style="margin-top:5px; line-height:1.4;">
+            Étudiante en <b>Cycle Ingénieur d'État en Informatique et Intelligence Artificielle</b>, avec un <b>double diplôme en cybersécurité</b>, passionnée par l'IA et la data science, alliant rigueur technique. Motivée à relever des défis concrets et à contribuer à des projets innovants à forte valeur ajoutée.
+        </p>
+
+        <h2>EXPÉRIENCES PROFESSIONNELLES</h2>
+
+        <div class="job-title">IA & CYBERSÉCURITÉ</div>
+        <div class="company"><span>ALEXSYS SOLUTIONS</span> <span>05/2025 - 08/2025 | Casablanca, Maroc</span></div>
+        <div class="project-name">Projet : Agent Virtuel Sécurisé</div>
+        <ul>
+            <li>Développement de modèles de détection d'anomalies, anticiper les menaces de sécurité et estimer les temps de résolution.</li>
+            <li>Réduction des faux positifs et amélioration de la précision des alertes.</li>
+            <li>Intégration d'un chatbot conversationnel intelligent, basé sur le traitement du langage naturel NLP.</li>
+            <li>Conception de tableaux de bord dynamiques pour le suivi des incidents.</li>
+        </ul>
+        <div class="tech-stack">Technologies : Azure ML, Sentinel, OpenAI, Power BI, Python, KQL, NLP, HTML/CSS/JS, Jira.</div>
+
+        <div class="job-title">Développeuse Frontend et Backend</div>
+        <div class="company"><span>Dpointgroup</span> <span>05/2024 - 09/2024 | Barcelone, Espagne</span></div>
+        <div class="project-name">Projet : Application Web de Services DpointGroup</div>
+        <ul>
+            <li>Développement de l'interface utilisateur avec un design responsive.</li>
+            <li>Création des fonctionnalités backend pour la gestion des services, des utilisateurs et des transactions.</li>
+            <li>Mise en place de workflows pour le traitement et la gestion des données.</li>
+        </ul>
+        <div class="tech-stack">Technologies : JavaScript, HTML5/CSS3, Bootstrap, Node.js, Express.js, MongoDB, Adobe XD, Jira.</div>
+
+        <h2>PROJETS ACADÉMIQUES</h2>
+
+        <div class="job-title">Intelligence Artificielle & Vision par Ordinateur</div>
+        <div class="company"><span>10/2025 - 01/2026</span></div>
+        <div class="project-name">Projet : Détection d'anomalies visuelles industrielles</div>
+        <div class="role">Rôle : Développeuse en Vision par Ordinateur & IA</div>
+        <ul>
+            <li>Analyse et préparation des données d'<b>images</b> industrielles.</li>
+            <li>Développement de modèles de détection d'anomalies.</li>
+            <li>Détection et visualisation d'anomalies et évaluation des performances.</li>
+        </ul>
+        <div class="tech-stack">Technologies : Python, TensorFlow, Keras, OpenCV, Scikit-learn, NumPy, Matplotlib, Streamlit.</div>
+
+        <div class="job-title">Data Transformation et Machine Learning</div>
+        <div class="company"><span>02/2025 - 04/2025</span></div>
+        <div class="project-name">Projet : Système de maintenance prédictive</div>
+        <div class="role">Rôle : Ingénieure en Machine Learning</div>
+        <ul>
+            <li>Prétraitement des données capteurs et création de variables pertinentes.</li>
+            <li>Détection d'anomalies et optimisation de la maintenance (précision > 90 %).</li>
+            <li>Déploiement cloud pour automatisation du flux de données.</li>
+        </ul>
+        <div class="tech-stack">Technologies : Python, scikit-learn, TensorFlow, Pandas, NumPy, Keras, AWS.</div>
+        
+        <h2>LEADERSHIP & ENGAGEMENT</h2>
+        <div class="job-title">Déléguée</div>
+        <div class="company"><span>Association Georgetown</span> <span>Washington, D.C. États Unis</span></div>
+        <ul>
+            <li>Représenté mon pays lors de débats internationaux sur la durabilité et la sécurité mondiale.</li>
+            <li>Participé à des négociations diplomatiques et visité la <b>NASA</b>.</li>
+        </ul>
+
+    </div>
+
+    <div class="side-col">
+        
+        <h2>FORMATIONS</h2>
+        
+        <div class="edu-block">
+            <div class="edu-title">Master d'État en Cybersécurité</div>
+            <div class="edu-school">UPHF - INSA Hauts-de-France</div>
+            <div class="edu-school">Valenciennes, France</div>
+            <span class="edu-date">📅 11/2024 - 07/2026</span>
+        </div>
+
+        <div class="edu-block">
+            <div class="edu-title">Cycle Ingénieur d'État en Génie Informatique & IA</div>
+            <div class="edu-school">HESTIM</div>
+            <div class="edu-school">Casablanca, Maroc</div>
+            <span class="edu-date">📅 09/2023 - 07/2026</span>
+        </div>
+
+        <div class="edu-block">
+            <div class="edu-title">Classes Préparatoires</div>
+            <div class="edu-school">HESTIM</div>
+            <div class="edu-school">Casablanca, Maroc</div>
+            <span class="edu-date">📅 09/2021 - 06/2023</span>
+        </div>
+
+        <h2>COMPÉTENCES TECHNIQUES</h2>
+
+        <div class="skill-category">Machine Learning & IA</div>
+        <div class="edu-school">TensorFlow, PyTorch, Scikit-learn, Keras, XGBoost, NLP, Pipelines ML</div>
+
+        <div class="skill-category">Ingénierie des données</div>
+        <div class="edu-school">NumPy, Pandas, Data Augmentation, SQL, PL/SQL, NoSQL, MongoDB, Hadoop</div>
+
+        <div class="skill-category">Cloud & Infrastructure</div>
+        <div class="edu-school">Azure, AWS, GCP, Docker</div>
+
+        <div class="skill-category">Outils & Développement</div>
+        <div class="edu-school">Power BI, Jupyter, Tableau, Anaconda, Jira, Visual Studio, Linux</div>
+
+        <div class="skill-category">Programmation</div>
+        <div class="edu-school">Python, Java, C, JavaScript, PHP</div>
+
+        <h2>COMPÉTENCES MANAGÉRIALES</h2>
+        <ul style="padding-left: 15px;">
+            <li>Résolution de problèmes</li>
+            <li>Gestion de projet</li>
+            <li>Esprit critique</li>
+            <li>Collaboration</li>
+        </ul>
+
+        <h2>LANGUES</h2>
+        <ul style="padding-left: 15px;">
+            <li>Anglais</li>
+            <li>Français</li>
+            <li>Arabe</li>
+        </ul>
+
+    </div>
+</div>
+
+</body>
+</html>
