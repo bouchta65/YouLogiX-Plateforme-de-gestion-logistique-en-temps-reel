@@ -25,6 +25,15 @@ def get_all_colis(db:Session):
 def get_colis_by_id(db:Session,colis_id:int):
     return db.query(Colis).filter(Colis.id == colis_id).first()
 
+def assign_colis_to_livreur(db: Session, colis_id: int, livreur_id: int):
+    colis = get_colis_by_id(db, colis_id)
+    if not colis:
+        return None
+    colis.id_livreur = livreur_id
+    db.commit()
+    db.refresh(colis)
+    return colis
+
 def update_colis(db:Session,colis_id:int,colis:ColisUpdate):
     colis = get_colis_by_id(colis_id)
     if not colis:
