@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models.livreur import Livreur
 from app.schemas.livreur import LivreurCreate, LivreurUpdate
+from app.models.colis import Colis
 
 def create_livreur(db: Session, livreur: LivreurCreate):
     db_livreur = Livreur(
@@ -22,6 +23,9 @@ def get_livreurs(db:Session):
 
 def get_livreur_by_id(db:Session,livreur_id:int):
     return db.query(Livreur).filter(Livreur.id == livreur_id).first()
+
+def get_colis_assignes(db: Session, livreur_id: int):
+    return db.query(Colis).filter(Colis.id_livreur == livreur_id).all()
 
 def update_livreur(db:Session,livreur_id,livruer_update:LivreurUpdate):
     db_livreur = get_livreur_by_id(livreur_id)
