@@ -23,4 +23,4 @@ class ClientExpediteurUpdate(BaseModel):
 class ClientExpediteurRead(ClientExpediteurBase):
     id: int
     class Config:
-        orm_mode = True
+        from_attributes = True
