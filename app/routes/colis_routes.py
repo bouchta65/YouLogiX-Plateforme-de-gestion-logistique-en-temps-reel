@@ -25,8 +25,28 @@ router = APIRouter(
              response_model=ColisRead, 
              status_code=status.HTTP_201_CREATED,
              summary="Créer un nouveau colis",
-             description="Enregistre un nouveau colis dans le système avec toutes ses informations")
+             description="Enregistre un nouveau colis dans le système avec toutes ses informations de livraison")
 def create_colis_route(colis: ColisCreate, db: Session = Depends(get_db)):
+    """
+    Crée un nouveau colis.
+    
+    **Champs requis** :
+    - **description** : Description du contenu du colis
+    - **poids** : Poids en kilogrammes
+    - **statut** : Statut initial (CREE, EN_TRANSIT, EN_LIVRAISON, LIVRE, RETOURNE)
+    - **ville_destination** : Ville de destination
+    - **id_client_expediteur** : ID du client expéditeur
+    - **id_destinataire** : ID du destinataire
+    
+    **Champs optionnels** :
+    - **id_livreur** : ID du livreur (peut être assigné plus tard)
+    - **id_zone** : ID de la zone de livraison
+    
+    **Retour** :
+    - Code 201 : Colis créé avec succès
+    
+    L'action est enregistrée dans les logs système.
+    """
     return create_colis(db, colis)
 
 
@@ -45,24 +65,28 @@ def get_all_colis_route(db: Session = Depends(get_db)):
 
 @router.get("/search", 
             response_model=list[ColisRead],
-            summary="Rechercher des colis avec filtres",
-            description="Filtre les colis par statut, zone et/ou livreur")
+            summary="Rechercher des colis avec filtres avancés",
+            description="Filtre les colis par statut, zone et/ou livreur - Tous les filtres sont optionnels et combinables")
 def search_colis_route(
     db: Session = Depends(get_db),
-    statut: Optional[str] = Query(None, description="Statut du colis (cree, collecte, en stock, en transit, livrE)"),
+    statut: Optional[str] = Query(None, description="Statut du colis : CREE, EN_TRANSIT, EN_LIVRAISON, LIVRE, RETOURNE"),
     zone_id: Optional[int] = Query(None, description="ID de la zone de livraison"),
     livreur_id: Optional[int] = Query(None, description="ID du livreur assigné")
 ):
     """
     Recherche des colis avec des filtres optionnels.
     
-    Paramètres de filtrage :
-    - **statut**: Statut du colis (cree, collecte, en stock, en transit, livrE)
-    - **zone_id**: ID de la zone de livraison
-    - **livreur_id**: ID du livreur assigné
+    **Paramètres de filtrage** (tous optionnels) :
+    - **statut** : Filtrer par statut (CREE, EN_TRANSIT, EN_LIVRAISON, LIVRE, RETOURNE)
+    - **zone_id** : Filtrer par zone de livraison
+    - **livreur_id** : Filtrer par livreur assigné
     
-    Tous les filtres sont optionnels et peuvent être combinés.
-    Si aucun filtre n'est fourni, retourne tous les colis.
+    **Retour** :
+    - Liste des colis correspondant aux critères
+    - Liste vide si aucun colis ne correspond
+    - Sans filtres, retourne tous les colis
+    
+    Tous les filtres sont combinables pour une recherche précise.
     """
     return search_colis(db, statut=statut, zone_id=zone_id, livreur_id=livreur_id)
 
@@ -88,23 +112,29 @@ def get_colis_by_id_route(colis_id: int, db: Session = Depends(get_db)):
 @router.put("/{colis_id}", 
             response_model=ColisRead,
             summary="Mettre à jour un colis",
-            description="Modifie les informations d'un colis existant")
+            description="Modifie les informations d'un colis existant (statut, assignation, etc.)")
 def update_colis_route(colis_id: int, colis_update: ColisUpdate, db: Session = Depends(get_db)):
     """
     Met à jour un colis existant.
     
-    - **colis_id**: L'identifiant unique du colis
+    **Paramètres** :
+    - **colis_id** : Identifiant unique du colis
+    
+    **Champs modifiables** :
+    - description, poids, statut, ville_destination
+    - id_livreur, id_zone
     - Seuls les champs fournis seront mis à jour
     
-    Champs modifiables :
-    - description
-    - poids
-    - statut
-    - ville_destination
-    - id_livreur
-    - id_zone
+    **Cas d'usage** :
+    - Changer le statut du colis lors de son parcours
+    - Réassigner à un autre livreur
+    - Modifier la zone de livraison
     
-    Retourne une erreur 404 si le colis n'existe pas.
+    **Retour** :
+    - Code 200 : Colis mis à jour avec succès
+    - Code 404 : Colis non trouvé
+    
+    Toute modification est enregistrée dans les logs.
     """
     db_colis = update_colis(db, colis_id, colis_update)
     if not db_colis:
@@ -123,7 +153,7 @@ def delete_colis_route(colis_id: int, db: Session = Depends(get_db)):
     - **colis_id**: L'identifiant unique du colis à supprimer
     
     Retourne une erreur 404 si le colis n'existe pas.
-    ⚠️ Attention : Cette opération est irréversible.
+    Attention : Cette opération est irréversible.
     """
     db_colis = delete_colis(db, colis_id)
     if not db_colis:

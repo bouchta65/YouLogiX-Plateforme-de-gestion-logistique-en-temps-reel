@@ -12,7 +12,33 @@ if os.getenv("TESTING") != "1":
     Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="YOULOGIX API",
+    title="YouLogiX API - Gestion Logistique",
+    description="""
+    Plateforme de gestion logistique en temps réel
+    
+    API REST complète pour la gestion des opérations logistiques :
+    
+    ### Fonctionnalités principales
+    
+    * Gestion des utilisateurs : Clients expéditeurs, destinataires, livreurs
+    * Gestion des colis : CRUD complet avec traçabilité
+    * Assignations : Attribution intelligente des colis aux livreurs
+    * Zones de livraison : Organisation géographique optimisée
+    * Recherche avancée : Filtres multiples sur les colis
+    
+    ### Statuts des colis
+    
+    - CREE : Colis créé, en attente de traitement
+    - EN_TRANSIT : Colis en cours d'acheminement
+    - EN_LIVRAISON : Colis en cours de livraison
+    - LIVRE : Colis livré avec succès
+    - RETOURNE : Colis retourné à l'expéditeur
+    
+    ### Logging et monitoring
+    
+    Toutes les actions critiques (création, modification, suppression) sont enregistrées
+    pour assurer la traçabilité et faciliter le debugging.
+    """,
     version="1.0.0",
 )
 
