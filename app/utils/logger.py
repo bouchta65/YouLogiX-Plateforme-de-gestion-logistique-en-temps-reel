@@ -2,28 +2,18 @@ import logging
 import sys
 from pathlib import Path
 
-# Create logs directory if it doesn't exist
 log_dir = Path("logs")
 log_dir.mkdir(exist_ok=True)
 
-# Configure logging format
+
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
-# Create logger
+
 def get_logger(name: str) -> logging.Logger:
-    """
-    Get a configured logger instance
-    
-    Args:
-        name: Name of the logger (usually __name__ of the module)
-    
-    Returns:
-        Configured logger instance
-    """
+
     logger = logging.getLogger(name)
     
-    # Only configure if handlers haven't been set up yet
     if not logger.handlers:
         logger.setLevel(logging.INFO)
         
