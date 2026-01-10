@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
@@ -21,5 +21,4 @@ class LivreurUpdate(BaseModel):
 
 class LivreurRead(LivreurBase):
     id: int
-    class Config:
-        orm_mode = True 
+    model_config = ConfigDict(from_attributes=True) 

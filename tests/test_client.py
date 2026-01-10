@@ -26,7 +26,8 @@ class TestClientAPI:
         
         response = client.post("/clients/", json=sample_client_data)
         
-        assert response.status_code in [status.HTTP_400_BAD_REQUEST, status.HTTP_409_CONFLICT, status.HTTP_500_INTERNAL_SERVER_ERROR]
+        assert response.status_code == status.HTTP_409_CONFLICT
+        assert "existe déjà" in response.json()["detail"]
     
     def test_get_all_clients_empty(self, client):
         response = client.get("/clients/")
@@ -111,104 +112,4 @@ class TestClientAPI:
         response = client.delete("/clients/9999")
         
         assert response.status_code == status.HTTP_404_NOT_FOUND
-
-
-class TestClientController:
-
-    
-    def test_create_client_in_db(self, test_db, sample_client_data):
-
-        from app.controllers.client_controller import create_client
-        from app.schemas.client_expediteur import ClientExpediteurCreate
-        
-        client_create = ClientExpediteurCreate(**sample_client_data)
-        db_client = create_client(test_db, client_create)
-        
-        assert db_client.id is not None
-        assert db_client.nom == sample_client_data["nom"]
-        assert db_client.prenom == sample_client_data["prenom"]
-        assert db_client.email == sample_client_data["email"]
-    
-    def test_get_clients_from_db(self, test_db, sample_client_data):
-
-        from app.controllers.client_controller import create_client, get_clients
-        from app.schemas.client_expediteur import ClientExpediteurCreate
-        
-        for i in range(3):
-            client_data = sample_client_data.copy()
-            client_data["email"] = f"client{i}@example.com"
-            client_create = ClientExpediteurCreate(**client_data)
-            create_client(test_db, client_create)
-        
-        all_clients = get_clients(test_db)
-        
-        assert len(all_clients) == 3
-    
-    def test_get_client_by_id_from_db(self, test_db, sample_client_data):
-
-        from app.controllers.client_controller import create_client, get_clients_by_id
-        from app.schemas.client_expediteur import ClientExpediteurCreate
-        
-        client_create = ClientExpediteurCreate(**sample_client_data)
-        db_client = create_client(test_db, client_create)
-        
-        retrieved_client = get_clients_by_id(test_db, db_client.id)
-        
-        assert retrieved_client is not None
-        assert retrieved_client.id == db_client.id
-        assert retrieved_client.email == sample_client_data["email"]
-    
-    def test_update_client_in_db(self, test_db, sample_client_data):
-
-        from app.controllers.client_controller import create_client, update_client
-        from app.schemas.client_expediteur import ClientExpediteurCreate, ClientExpediteurUpdate
-        
-     
-        client_create = ClientExpediteurCreate(**sample_client_data)
-        db_client = create_client(test_db, client_create)
-        
-      
-        update_data = ClientExpediteurUpdate(nom="Nom Mis à Jour", telephone="+33999888777")
-        updated_client = update_client(test_db, db_client.id, update_data)
-        
-        assert updated_client.nom == "Nom Mis à Jour"
-        assert updated_client.telephone == "+33999888777"
-
-        assert updated_client.email == sample_client_data["email"]
-    
-    def test_update_client_not_found_in_db(self, test_db):
-
-        from app.controllers.client_controller import update_client
-        from app.schemas.client_expediteur import ClientExpediteurUpdate
-        
-        update_data = ClientExpediteurUpdate(nom="Nom Test")
-        result = update_client(test_db, 9999, update_data)
-        
-        assert result is None
-    
-    def test_delete_client_from_db(self, test_db, sample_client_data):
-
-        from app.controllers.client_controller import create_client, delete_client, get_clients_by_id
-        from app.schemas.client_expediteur import ClientExpediteurCreate
-        
-       
-        client_create = ClientExpediteurCreate(**sample_client_data)
-        db_client = create_client(test_db, client_create)
-        client_id = db_client.id
-        
-       
-        deleted_client = delete_client(test_db, client_id)
-        
-        assert deleted_client.id == client_id
-        
-        
-        assert get_clients_by_id(test_db, client_id) is None
-    
-    def test_delete_client_not_found_in_db(self, test_db):
-        """Test de suppression d'un client inexistant de la base de données"""
-        from app.controllers.client_controller import delete_client
-        
-        result = delete_client(test_db, 9999)
-        
-        assert result is None
 

@@ -11,7 +11,10 @@ router = APIRouter(
 
 @router.post("/",response_model=ClientExpediteurRead,status_code=status.HTTP_201_CREATED)
 def create_client_route(client: ClientExpediteurCreate,db: Session = Depends(get_db)):
-    return create_client(db,client)
+    try:
+        return create_client(db,client)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
 
 @router.get("/",response_model=list[ClientExpediteurRead])
 def get_client_route(db:Session = Depends(get_db)):

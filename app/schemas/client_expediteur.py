@@ -1,4 +1,4 @@
-from pydantic import BaseModel , EmailStr
+from pydantic import BaseModel , EmailStr, ConfigDict
 
 
 class ClientExpediteurBase(BaseModel):
@@ -22,5 +22,4 @@ class ClientExpediteurUpdate(BaseModel):
     
 class ClientExpediteurRead(ClientExpediteurBase):
     id: int
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

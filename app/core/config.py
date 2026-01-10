@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 from typing import Optional
 
 
@@ -10,8 +11,7 @@ class Setting(BaseSettings):
     POSTGRES_PORT: int = 5432
     DATABASE_URL: Optional[str] = None
 
-    class Config:
-        env_file = ".env"
+    model_config = ConfigDict(env_file=".env")
         
     @property
     def database_url(self):

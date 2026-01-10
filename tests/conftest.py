@@ -104,10 +104,19 @@ def sample_colis_data():
     return {
         "description": "Colis fragile",
         "poids": "5kg",
-        "statut": "cree",
+        "statut": "créé",
         "ville_destination": "Lyon",
         "id_livreur": None,
         "id_client_expediteur": 1,
         "id_destinataire": 1,
         "id_zone": None
+    }
+
+
+@pytest.fixture
+def sample_zone_data():
+    """Données d'exemple pour une zone"""
+    return {
+        "nom": "Zone Nord",
+        "description": "Zone de livraison Nord de Paris"
     }

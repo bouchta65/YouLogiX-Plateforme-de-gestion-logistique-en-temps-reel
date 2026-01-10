@@ -29,7 +29,7 @@ def update_livreur(db: Session, livreur_id: int, livreur_update: LivreurUpdate):
     if not db_livreur:
         return None
     
-    for key, value in livreur_update.dict(exclude_unset=True).items():
+    for key, value in livreur_update.model_dump(exclude_unset=True).items():
         setattr(db_livreur, key, value)
     db.commit()
     db.refresh(db_livreur)

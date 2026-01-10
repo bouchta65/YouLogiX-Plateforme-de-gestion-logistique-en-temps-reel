@@ -23,6 +23,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],)
 
+
+# routes
 app.include_router(client_routes.router)
 app.include_router(destinataire_routes.router)
 app.include_router(livreur_routes.router)
@@ -30,6 +32,7 @@ app.include_router(colis_routes.router)
 app.include_router(zone_routes.router)
 app.include_router(assignment_routes.router)
 
+# 
 @app.get("/")
 def root():
     return {

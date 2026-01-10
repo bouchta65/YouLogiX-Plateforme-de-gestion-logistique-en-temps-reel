@@ -27,7 +27,7 @@ def update_destinataire(db: Session, destinataire_id: int, destinataire_update: 
     db_destinataire = get_destinataire_by_id(db, destinataire_id)
     if not db_destinataire:
         return None
-    for key, value in destinataire_update.dict(exclude_unset=True).items():
+    for key, value in destinataire_update.model_dump(exclude_unset=True).items():
         setattr(db_destinataire, key, value)
     db.commit()
     db.refresh(db_destinataire)
