@@ -16,7 +16,7 @@ class Colis(Base):
     id = Column(Integer, primary_key=True)
     description = Column(String, nullable=False)
     poids = Column(String, nullable=False)
-    statut = Column(Enum(StatutColis), default=StatutColis.CREE)
+    statut = Column(Enum(StatutColis, values_callable=lambda obj: [e.value for e in obj]), default=StatutColis.CREE)
     id_livreur = Column(Integer, ForeignKey("livreurs.id"), nullable=True)
     id_client_expediteur = Column(Integer, ForeignKey("client_expediteur.id"), nullable=False)
     id_destinataire = Column(Integer, ForeignKey("destinataires.id"), nullable=False)

@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from app.models.client_expediteur import ClientExpediteur
 from app.schemas.client_expediteur import ClientExpediteurCreate, ClientExpediteurUpdate
 
@@ -11,9 +12,13 @@ def create_client(db: Session, client: ClientExpediteurCreate):
         adresse=client.adresse
     )
     db.add(db_client)
-    db.commit()
-    db.refresh(db_client)
-    return db_client
+    try:
+        db.commit()
+        db.refresh(db_client)
+        return db_client
+    except IntegrityError:
+        db.rollback()
+        raise ValueError(f"Un client avec l'email {client.email} existe déjà")
 
 def get_clients(db: Session):
     return db.query(ClientExpediteur).all()
@@ -25,7 +30,7 @@ def update_client(db:Session , client_id: int , client_update: ClientExpediteurU
     db_client = get_clients_by_id(db, client_id)
     if not db_client:
         return None
-    for key, value in client_update.dict(exclude_unset=True).items():
+    for key, value in client_update.model_dump(exclude_unset=True).items():
         setattr(db_client,key,value)   
     db.commit()
     db.refresh(db_client)
