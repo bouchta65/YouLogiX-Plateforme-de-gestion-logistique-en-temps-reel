@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from app.models.colis import Colis
-from app.schemas.colis import ColisCreate,ColisUpdate
+from app.models.colis import Colis, StatutColis
+from app.schemas.colis import ColisCreate, ColisUpdate
+from typing import Optional
 
 def create_colis(db:Session,colis:ColisCreate):
     db_colis = Colis(
@@ -42,4 +43,36 @@ def delete_colis(db: Session, colis_id: int):
     db.delete(db_colis)
     db.commit()
     return db_colis
+
+
+def search_colis(
+    db: Session, 
+    statut: Optional[str] = None, 
+    zone_id: Optional[int] = None, 
+    livreur_id: Optional[int] = None
+):
+  
+    query = db.query(Colis)
+    
+    if statut:
+        try:
+            statut_enum = StatutColis(statut)
+            query = query.filter(Colis.statut == statut_enum)
+        except ValueError:
+            return []
+    
+    if zone_id is not None:
+        query = query.filter(Colis.id_zone == zone_id)
+    
+    if livreur_id is not None:
+        query = query.filter(Colis.id_livreur == livreur_id)
+    
+    return query.all()
+
+
+def get_colis_by_livreur(db: Session, livreur_id: int):
+    """
+    Get all colis assigned to a specific livreur
+    """
+    return db.query(Colis).filter(Colis.id_livreur == livreur_id).all()
 

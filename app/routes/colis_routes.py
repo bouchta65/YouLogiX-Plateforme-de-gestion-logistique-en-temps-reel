@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi import APIRouter, HTTPException, Depends, status, Query
 from sqlalchemy.orm import Session
 from app.schemas.colis import ColisCreate, ColisUpdate, ColisRead
 from app.controllers.colis_controller import (
@@ -6,9 +6,11 @@ from app.controllers.colis_controller import (
     get_all_colis,
     get_colis_by_id,
     update_colis,
-    delete_colis
+    delete_colis,
+    search_colis
 )
 from app.core.database import get_db
+from typing import Optional
 
 router = APIRouter(
     prefix="/colis",
@@ -39,6 +41,30 @@ def get_all_colis_route(db: Session = Depends(get_db)):
     Retourne une liste vide si aucun colis n'est enregistré.
     """
     return get_all_colis(db)
+
+
+@router.get("/search", 
+            response_model=list[ColisRead],
+            summary="Rechercher des colis avec filtres",
+            description="Filtre les colis par statut, zone et/ou livreur")
+def search_colis_route(
+    db: Session = Depends(get_db),
+    statut: Optional[str] = Query(None, description="Statut du colis (cree, collecte, en stock, en transit, livrE)"),
+    zone_id: Optional[int] = Query(None, description="ID de la zone de livraison"),
+    livreur_id: Optional[int] = Query(None, description="ID du livreur assigné")
+):
+    """
+    Recherche des colis avec des filtres optionnels.
+    
+    Paramètres de filtrage :
+    - **statut**: Statut du colis (cree, collecte, en stock, en transit, livrE)
+    - **zone_id**: ID de la zone de livraison
+    - **livreur_id**: ID du livreur assigné
+    
+    Tous les filtres sont optionnels et peuvent être combinés.
+    Si aucun filtre n'est fourni, retourne tous les colis.
+    """
+    return search_colis(db, statut=statut, zone_id=zone_id, livreur_id=livreur_id)
 
 
 @router.get("/{colis_id}", 
