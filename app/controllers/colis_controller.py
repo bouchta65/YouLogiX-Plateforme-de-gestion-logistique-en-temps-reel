@@ -25,15 +25,15 @@ def get_all_colis(db:Session):
 def get_colis_by_id(db:Session,colis_id:int):
     return db.query(Colis).filter(Colis.id == colis_id).first()
 
-def update_colis(db:Session,colis_id:int,colis:ColisUpdate):
-    colis = get_colis_by_id(colis_id)
-    if not colis:
+def update_colis(db: Session, colis_id: int, colis: ColisUpdate):
+    db_colis = get_colis_by_id(db, colis_id)
+    if not db_colis:
         return None
-    for key,valus in ColisUpdate.dict(exclude_unset=True).items():
-        setattr(db,key,valus)
+    for key, value in colis.model_dump(exclude_unset=True).items():
+        setattr(db_colis, key, value)
     db.commit()
-    db.refresh(colis)
-    return colis
+    db.refresh(db_colis)
+    return db_colis
 
 def delete_colis(db: Session, colis_id: int):
     db_colis = get_colis_by_id(db, colis_id)
@@ -42,4 +42,4 @@ def delete_colis(db: Session, colis_id: int):
     db.delete(db_colis)
     db.commit()
     return db_colis
-    
+

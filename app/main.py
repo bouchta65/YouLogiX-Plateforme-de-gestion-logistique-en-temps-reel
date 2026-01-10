@@ -6,11 +6,14 @@ from app.routes import client_routes, destinataire_routes, livreur_routes, colis
 # Import all models to ensure they're registered with Base
 from app.models import client_expediteur, destinataire, livreur, colis, zone, historique_statut
 
-Base.metadata.create_all(bind=engine)
+# Create tables only if not in test environment
+import os
+if os.getenv("TESTING") != "1":
+    Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="YOULOGIX",
-    description="Plateforme-de-gestion-logistique-en-temps-reel"
+    title="YOULOGIX API",
+    version="1.0.0",
 )
 
 app.add_middleware(
@@ -27,7 +30,12 @@ app.include_router(colis_routes.router)
 
 @app.get("/")
 def root():
-    return {"message": "Bienvenue sur l'API YouLogiX"} 
+    return {
+        "message": "Bienvenue sur l'API YouLogiX",
+        "version": "1.0.0",
+        "documentation": "/docs",
+        "redoc": "/redoc"
+    } 
 
 @app.get("/health")
 def health_check():

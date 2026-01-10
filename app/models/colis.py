@@ -3,11 +3,11 @@ from app.core.database import Base
 import enum
 
 class StatutColis(enum.Enum):
-    CREE = "créé"
-    COLLECTE = "collecté"
+    CREE = "cree"
+    COLLECTE = "collecte"
     EN_STOCK = "en stock"
     EN_TRANSIT = "en transit"
-    LIVRE = "livré"
+    LIVRE = "livrE"
     
     
 class Colis(Base):
